@@ -1,5 +1,5 @@
-"use client"
-
+"use client";
+import { exportarFacturasDelDia } from "@/features/facturas/exportarFacturas";
 import {
   type ColumnDef,
   flexRender,
@@ -8,7 +8,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -17,25 +17,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-import { NotebookPen } from "lucide-react"
-
-
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { NotebookPen } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
     columns,
@@ -46,13 +42,10 @@ export function DataTable<TData, TValue>({
     state: {
       columnFilters,
     },
-  })
-
-
+  });
 
   return (
     <div>
-
       <div className="ml-4 mr-4 rounded-md border">
         <Table>
           <TableHeader>
@@ -64,11 +57,11 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -82,14 +75,20 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -99,6 +98,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between space-x-2 py-4 mr-4 ml-4">
         <Button
+          onClick={exportarFacturasDelDia}
           type="submit"
           className="cursor-pointer bg-green-600 text-white hover:bg-green-800"
         >
@@ -127,5 +127,5 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
     </div>
-  )
+  );
 }
