@@ -7,7 +7,12 @@ import { Trash } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-
+export type Payment = {
+    id: number
+    numeroFactura: string
+    monto: string
+    fecha: Date
+}
 
 export const columns: ColumnDef<Factura>[] = [
     {
