@@ -4,11 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ReceiptText } from "lucide-react";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
+
 import { db } from "@/db/facturasDB";
 import type { Factura } from "@/types/factura";
-import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 
 // Cambia este import:
 import { toast } from "sonner";
@@ -65,11 +62,10 @@ const CargarFactura: React.FC = () => {
         `Factura #${values.numeroFactura} por $${values.importe} ha sido registrada.`
       );
 
-      // También actualizar el estado local para mostrarla sin recargar
       setFacturas([
         ...facturas,
         {
-          id: Date.now(), // local para el renderizado (Dexie asigna su propio id)
+          id: Date.now(), 
           numero: nuevaFactura.numero,
           importe: nuevaFactura.importe,
           fecha: fechaActual,
@@ -82,14 +78,7 @@ const CargarFactura: React.FC = () => {
       toast.error("Ocurrió un error al guardar la factura.");
     }
   }
-  useEffect(() => {
-    const verFacturas = async () => {
-      const todas = await db.facturas.toArray();
-      console.log("Facturas guardadas en IndexedDB:", todas);
-    };
-
-    verFacturas();
-  }, []);
+  
 
   return (
     <div className="space-y-8">
@@ -146,32 +135,7 @@ const CargarFactura: React.FC = () => {
         </form>
       </Form>
 
-      {facturas.length > 0 && (
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-4">
-            Facturas Recientes
-          </h3>
-          <div className="grid gap-4">
-            {facturas.map((factura) => (
-              <Card key={factura.id}>
-                <CardContent className="p-4 flex justify-between items-center">
-                  <div>
-                    <p className="font-medium">Factura #{factura.numero}</p>
-                    <p className="text-sm text-slate-500">
-                      {format(factura.fecha, "PPP 'a las' HH:mm", {
-                        locale: es,
-                      })}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-bold">${factura.importe}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 };
