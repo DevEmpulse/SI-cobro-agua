@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { ActionsCell } from "@/components/ActionsCell";
+import { db } from "@/db/facturasDB";
 import type { Factura } from "@/types/factura";
-import { type ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/table-core";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Trash } from "lucide-react";
+
+// Importa ColumnDef así, según la versión moderna:
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -16,7 +18,7 @@ export const columns: ColumnDef<Factura>[] = [
   {
     accessorKey: "fecha",
     header: "Fecha",
-    cell: ({ row }) => {
+    cell: ({ row }: { row: { original: Factura } }) => {
       const fecha = row.original.fecha;
       return fecha
         ? format(fecha, "dd/MM/yyyy HH:mm", { locale: es })
@@ -29,22 +31,17 @@ export const columns: ColumnDef<Factura>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <div className="flex space-x-2">
-          <Button
-            className="cursor-pointer"
-            variant="destructive"
-            size="sm"
-            onClick={() => console.log("Borrar", payment.id)} // Aquí va tu lógica de borrar
-          >
-            <Trash className="h-4 w-4" />
-            Borrar
-          </Button>
-        </div>
-      );
-    },
+    cell: ({ row, table }) => (
+      <ActionsCell
+        payment={row.original}
+        onDelete={async () => {
+          const id = row.original.id;
+          if (id !== undefined) {
+            await db.facturas.delete(row.original.id);
+            table.options.meta?.removeFactura?.(id);
+          }
+        }}
+      />
+    ),
   },
 ];
