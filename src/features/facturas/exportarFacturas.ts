@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { db } from "@/db/facturasDB";
 import { getFacturasStats } from "@/utils/calculos";
+import { toast } from "sonner";
 
 interface jsPDFWithAutoTable extends jsPDF {
   lastAutoTable: {
@@ -28,7 +29,7 @@ export const exportarFacturasDelDia = async () => {
     .toArray();
 
   if (facturasDelDia.length === 0) {
-    console.log("No hay facturas del día.");
+    toast.error("No hay facturas del día.");
     return;
   }
 

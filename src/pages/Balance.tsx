@@ -18,7 +18,7 @@ export const Balance = () => {
       setStats(data);
     };
     fetchStats();
-  }, []);
+  }, [stats]);
 
   return (
     <div>
