@@ -18,10 +18,13 @@ export const FacturaList = () => {
     getFacturas();
   }, []);
 
+  const removeFactura = (id: number) => {
+    setFacturas((prev) => prev.filter(f => f.id !== id));
+  };
 
     return (
         <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={facturas} />
+        <DataTable columns={columns} data={facturas} meta={{ removeFactura }} />
       </div>
     )
 }

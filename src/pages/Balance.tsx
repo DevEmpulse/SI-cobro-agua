@@ -17,7 +17,7 @@ export const Balance = () => {
             setFacturas(data);
         };
         getFacturas();
-    }, []);
+    }, [facturas]);
 
     const totalFacturas = facturas.length;
     const totalImporte = facturas.reduce((acc, factura) => acc + factura.importe, 0);
