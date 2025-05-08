@@ -12,10 +12,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 
-// Cambia este import:
+
 import { toast } from "sonner"
 
-// Definir interfaces para los tipos de datos
 interface Factura {
   id: number
   numeroFactura: string
@@ -62,15 +61,13 @@ const CargarFactura: React.FC = () => {
       monto: "",
     })
 
-    toast.success(`Factura #${values.numeroFactura} por $${values.monto} ha sido registrada.`, {
-      description: "Factura registrada correctamente.",
-    })
+    toast.success(`Factura #${values.numeroFactura} por $${values.monto} ha sido registrada.`);
   }
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Cargar Nueva Factura</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-2">Cargar Nueva Factura</h2>
         <p className="text-slate-600 dark:text-slate-400">
           Ingresa los detalles de la factura para registrarla en el sistema
         </p>
@@ -123,7 +120,7 @@ const CargarFactura: React.FC = () => {
                 <CardContent className="p-4 flex justify-between items-center">
                   <div>
                     <p className="font-medium">Factura #{factura.numeroFactura}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                    <p className="text-sm text-slate-500 ">
                       {format(factura.fecha, "PPP 'a las' HH:mm", { locale: es })}
                     </p>
                   </div>
