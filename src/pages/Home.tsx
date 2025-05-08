@@ -94,9 +94,7 @@ const CargarFactura: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-2">
-          Cargar Nueva Factura
-        </h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-2">Cargar Nueva Factura</h2>
         <p className="text-slate-600 dark:text-slate-400">
           Ingresa los detalles de la factura para registrarla en el sistema
         </p>
@@ -159,7 +157,7 @@ const CargarFactura: React.FC = () => {
                 <CardContent className="p-4 flex justify-between items-center">
                   <div>
                     <p className="font-medium">Factura #{factura.numero}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                    <p className="text-sm text-slate-500">
                       {format(factura.fecha, "PPP 'a las' HH:mm", {
                         locale: es,
                       })}
