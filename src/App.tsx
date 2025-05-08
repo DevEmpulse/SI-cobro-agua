@@ -1,33 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import Header from './components/Header'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs'
+import CargarFactura from './pages/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="container mx-auto px-4 py-8">
+        <Header
+          title="Sistema de Gestión de Facturas"
+          subtitle=""
+        />
+         <div className="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden">
+          <Tabs defaultValue="cargar" className="w-full">
+            <div className="border-b border-slate-200 dark:border-slate-700">
+              <TabsList className="w-full justify-start bg-transparent p-0">
+                <TabsTrigger
+                  value="cargar"
+                  className="data-[state=active]:bg-white rounded-t-lg py-3 px-6 text-base font-medium cursor-pointer"
+                > 
+                  Cargar Facturas
+                </TabsTrigger>
+                <TabsTrigger
+                  value="balance"
+                  className="data-[state=active]:bg-white rounded-t-lg py-3 px-6 text-base font-medium cursor-pointer"
+                >
+                  Balance
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent value="cargar" className="p-6">
+              <CargarFactura />
+            </TabsContent>
+            <TabsContent value="balance" className="p-6">
+              
+            </TabsContent>
+          </Tabs>
+        </div>
+       </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
