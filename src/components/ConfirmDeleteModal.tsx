@@ -21,7 +21,7 @@ export const ConfirmDeleteModal = forwardRef<HTMLDivElement, ConfirmDeleteModalP
     <DialogContent ref={ref}>
       <DialogTitle>¿Estás seguro?</DialogTitle>
       <DialogDescription>
-        ¿Deseas borrar <b>{description}</b> <b>#{facturaNumero}</b>?
+        ¿Deseas borrar <b>{description}</b><b>{facturaNumero}</b>?
       </DialogDescription>
       <DialogFooter>
         <Button 

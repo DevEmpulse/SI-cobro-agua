@@ -48,6 +48,15 @@ const CargarFactura: React.FC = () => {
 
   async function onSubmit(values: FormValues) {
     const fechaActual = new Date();
+    const facturaExistente = await db.facturas
+      .where('numero')
+      .equals(values.numeroFactura)
+      .first();
+
+    if (facturaExistente) {
+      toast.error(`Ya existe una factura con el número ${values.numeroFactura}`);
+      return;
+    }
 
     const nuevaFactura = {
       numero: values.numeroFactura,

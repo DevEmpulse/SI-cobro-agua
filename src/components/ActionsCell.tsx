@@ -23,7 +23,7 @@ export function ActionsCell({ payment, onDelete, description}: { payment: Factur
           description={description}
           open={open}
           onOpenChange={setOpen}
-          facturaNumero={payment.numero}
+          facturaNumero={` #${payment.numero}`}
           onConfirm={onDelete}
         />
       </div>

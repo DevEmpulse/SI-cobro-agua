@@ -61,7 +61,6 @@ export const Balance = () => {
                     description="todas las facturas"
                     open={open}
                     onOpenChange={setOpen}
-                    facturaNumero="todas"
                     onConfirm={handleDeleteAll}
                 />
                 <Button
