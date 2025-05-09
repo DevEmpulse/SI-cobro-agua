@@ -18,12 +18,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Cambia este import:
 import { toast } from "sonner";
 
 // Esquema de validación
 const formSchema = z.object({
+  tipo: z.enum(["A", "B", "M"], {
+    required_error: "El tipo de factura es requerido.",
+  }),
   numeroFactura: z.string().min(1, {
     message: "El número de factura es requerido.",
   }),
@@ -32,7 +42,6 @@ const formSchema = z.object({
   }),
 });
 
-// Tipo para los valores del formulario
 type FormValues = z.infer<typeof formSchema>;
 
 const CargarFactura: React.FC = () => {
@@ -41,6 +50,7 @@ const CargarFactura: React.FC = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      tipo: "B",
       numeroFactura: "",
       importe: "",
     },
@@ -59,6 +69,7 @@ const CargarFactura: React.FC = () => {
     }
 
     const nuevaFactura = {
+      tipo: values.tipo,
       numero: values.numeroFactura,
       importe: parseFloat(values.importe),
       fecha: fechaActual,
@@ -75,6 +86,7 @@ const CargarFactura: React.FC = () => {
         ...facturas,
         {
           id: Date.now(), 
+          tipo: "Factura",
           numero: nuevaFactura.numero,
           importe: nuevaFactura.importe,
           fecha: fechaActual,
@@ -99,8 +111,35 @@ const CargarFactura: React.FC = () => {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <FormField
+              control={form.control}
+              name="tipo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tipo de Factura</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione el tipo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="A">A</SelectItem>
+                      <SelectItem value="B">B</SelectItem>
+                      <SelectItem value="M">M</SelectItem>
+                      <SelectItem value="C">C</SelectItem>
+                      <SelectItem value="E">E</SelectItem>
+                      <SelectItem value="T">T</SelectItem>
+                      <SelectItem value="X">X</SelectItem>
+                      <SelectItem value="R">R</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="numeroFactura"
@@ -108,7 +147,7 @@ const CargarFactura: React.FC = () => {
                 <FormItem>
                   <FormLabel>Número de Factura</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ej: B000000" {...field} />
+                    <Input placeholder="Ej: 000000" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

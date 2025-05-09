@@ -12,6 +12,10 @@ import { es } from "date-fns/locale";
 
 export const columns: ColumnDef<Factura>[] = [
   {
+    accessorKey: "tipo",
+    header: "Tipo",
+  },
+  {
     accessorKey: "numero",
     header: "Factura",
   },

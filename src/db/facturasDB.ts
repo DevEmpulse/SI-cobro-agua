@@ -8,7 +8,7 @@ export class FacturasDB extends Dexie {
   constructor() {
     super("facturasDB");
     this.version(1).stores({
-      facturas: "++id, numero, importe, fecha",
+      facturas: "++id, tipo, numero, importe, fecha",
     });
   }
 }
