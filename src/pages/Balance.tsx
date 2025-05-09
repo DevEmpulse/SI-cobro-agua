@@ -4,8 +4,11 @@ import { FacturaList } from "@/features/facturas/FacturaList";
 import { getFacturasStats } from "@/utils/calculos";
 import { formatearImporte } from "@/utils/calculos";
 import { Button } from "@/components/ui/button";
-import { NotebookPen } from "lucide-react";
+import { NotebookPen, Trash } from "lucide-react";
 import { exportarFacturasDelDia } from "@/features/facturas/exportarFacturas";
+import { deleteAllFacturas } from "@/utils/deletefactura";
+import { ConfirmDeleteModal } from "@/components/ConfirmDeleteModal";
+import { toast } from "sonner";
 
 export const Balance = () => {
     const [stats, setStats] = useState({
@@ -14,14 +17,25 @@ export const Balance = () => {
         totalComision: 0,
         totalRendicion: 0,
     });
+    const [updateTrigger, setUpdateTrigger] = useState(0);
+    const [open, setOpen] = useState(false);
+
+    const actualizarDatos = async () => {
+        const data = await getFacturasStats();
+        setStats(data);
+        setUpdateTrigger(prev => prev + 1);
+    };
 
     useEffect(() => {
-        const fetchStats = async () => {
-            const data = await getFacturasStats();
-            setStats(data);
-        };
-        fetchStats();
-    }, [stats]);
+        actualizarDatos();
+    }, []);
+
+    const handleDeleteAll = async () => {
+        await deleteAllFacturas();
+        await actualizarDatos();
+        setOpen(false);
+        
+    };
 
     return (
         <div>
@@ -29,6 +43,27 @@ export const Balance = () => {
                 <h2 className="text-2xl font-semibold text-slate-800">
                     Balance del día
                 </h2>
+                <Button
+                    onClick={() => {
+                        if (stats.totalFacturas > 0) {
+                            setOpen(true);
+                        } else {
+                            toast.error("No hay facturas para borrar");
+                        }
+                    }}
+                    type="submit"
+                    className="cursor-pointer bg-red-600 text-white hover:bg-red-800"
+                >
+                    <Trash className="h-4 w-4" />
+                    Borrar todas las facturas
+                </Button>
+                <ConfirmDeleteModal
+                    description="todas las facturas"
+                    open={open}
+                    onOpenChange={setOpen}
+                    facturaNumero="todas"
+                    onConfirm={handleDeleteAll}
+                />
                 <Button
                     onClick={exportarFacturasDelDia}
                     type="submit"
@@ -79,10 +114,10 @@ export const Balance = () => {
                 </Card>
             </div>
 
-            <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+            <h2 className="text-2xl font-semibold text-slate-800">
                 Facturas del día
             </h2>
-            <FacturaList />
+            <FacturaList key={updateTrigger} />
         </div>
     );
 };

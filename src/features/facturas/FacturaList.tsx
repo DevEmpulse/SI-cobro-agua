@@ -23,7 +23,7 @@ export const FacturaList = () => {
   };
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto py-7">
         <DataTable columns={columns} data={facturas} meta={{ removeFactura }} />
       </div>
     )

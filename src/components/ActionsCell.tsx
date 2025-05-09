@@ -5,7 +5,7 @@ import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 import type { Factura } from "@/types/factura";
 
 
-export function ActionsCell({ payment, onDelete }: { payment: Factura; onDelete: () => void }) {
+export function ActionsCell({ payment, onDelete, description}: { payment: Factura; onDelete: () => void, description: string }) {
     const [open, setOpen] = useState(false);
   
     return (
@@ -20,6 +20,7 @@ export function ActionsCell({ payment, onDelete }: { payment: Factura; onDelete:
           Borrar
         </Button>
         <ConfirmDeleteModal
+          description={description}
           open={open}
           onOpenChange={setOpen}
           facturaNumero={payment.numero}

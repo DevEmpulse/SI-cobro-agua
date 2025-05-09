@@ -33,6 +33,7 @@ export const columns: ColumnDef<Factura>[] = [
     id: "actions",
     cell: ({ row, table }) => (
       <ActionsCell
+        description="la factura"
         payment={row.original}
         onDelete={async () => {
           const id = row.original.id;
