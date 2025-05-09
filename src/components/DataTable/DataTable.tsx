@@ -24,11 +24,13 @@ import { useState } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  meta?: Record<string, unknown>;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  meta,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
@@ -41,6 +43,7 @@ export function DataTable<TData, TValue>({
     state: {
       columnFilters,
     },
+    meta,
   });
 
   return (
@@ -88,7 +91,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No hay Facturas registradas.
+                  No hay facturas registradas.
                 </TableCell>
               </TableRow>
             )}

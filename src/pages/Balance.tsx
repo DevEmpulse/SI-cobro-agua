@@ -10,6 +10,8 @@ import { deleteAllFacturas } from "@/utils/deletefactura";
 import { ConfirmDeleteModal } from "@/components/ConfirmDeleteModal";
 import { toast } from "sonner";
 
+
+
 export const Balance = () => {
     const [stats, setStats] = useState({
         totalFacturas: 0,
@@ -34,12 +36,12 @@ export const Balance = () => {
         await deleteAllFacturas();
         await actualizarDatos();
         setOpen(false);
-        
+        toast.success("Todas las facturas han sido borradas");
     };
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 gap-2">
                 <h2 className="text-2xl font-semibold text-slate-800">
                     Balance del día
                 </h2>
@@ -116,7 +118,7 @@ export const Balance = () => {
             <h2 className="text-2xl font-semibold text-slate-800">
                 Facturas del día
             </h2>
-            <FacturaList key={updateTrigger} />
+            <FacturaList key={updateTrigger} onFacturaChange={actualizarDatos} />
         </div>
     );
 };

@@ -5,10 +5,7 @@ import type { ColumnDef } from "@tanstack/table-core";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-// Importa ColumnDef así, según la versión moderna:
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 
 export const columns: ColumnDef<Factura>[] = [
   {

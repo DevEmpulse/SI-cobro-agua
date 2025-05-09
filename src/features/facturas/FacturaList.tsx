@@ -7,7 +7,7 @@ import type { Factura } from "@/types/factura";
 
 
 
-export const FacturaList = () => {
+export const FacturaList = ({ onFacturaChange }: { onFacturaChange: () => void }) => {
   const [facturas, setFacturas] = useState<Factura[]>([]);
   useEffect(() => {
     const getFacturas = async () => {
@@ -16,12 +16,21 @@ export const FacturaList = () => {
     };
 
     getFacturas();
-  }, [facturas]);
+  }, []);
 
+  const removeFactura = async (id: number) => {
+    
+    await db.facturas.delete(id);
+    setFacturas((prev) => prev.filter(f => f.id !== id));
+   
+    if (onFacturaChange) {
+      onFacturaChange();
+    }
+  };
 
-    return (
-        <div className="container mx-auto py-7">
-        <DataTable columns={columns} data={facturas} />
-      </div>
-    )
+  return (
+    <div className="container mx-auto py-7">
+      <DataTable columns={columns} data={facturas} meta={{ removeFactura }} />
+    </div>
+  )
 }
