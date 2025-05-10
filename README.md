@@ -1,54 +1,148 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 💧 Sistema de Gestión de Facturas - Potabilizadora
 
-Currently, two official plugins are available:
+**SIFacturaAguaPWA** es una aplicación web progresiva (PWA) desarrollada con **React**, **TypeScript**, **TailwindCSS** y **Vite**, pensada para gestionar facturas de una potabilizadora de agua. Permite registrar fácilmente facturas, visualizar balances diarios, aplicar comisiones automáticas del 2%, descargar los registros en PDF y mucho más.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Tecnología | Descripción |
+|-----------|-------------|
+| [React](https://reactjs.org) | Biblioteca de UI |
+| [Next.js](https://nextjs.org) / Vite | Framework para desarrollo web moderno |
+| [Tailwind CSS](https://tailwindcss.com) | Estilos rápidos y personalizables |
+| [TypeScript](https://www.typescriptlang.org) | Tipado estático para mayor robustez |
+| [Dexie.js](https://dexie.org) | IndexedDB para almacenamiento offline |
+| [Zod](https://github.com/colinhacks/zod) | Validación de esquemas de datos |
+| [React Hook Form](https://react-hook-form.com) | Manejo eficiente de formularios |
+| [jsPDF](https://github.com/parallax/jsPDF) + AutoTable | Generación de archivos PDF |
+| [Radix UI](https://www.radix-ui.com/) | Componentes accesibles y estilizados |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 📦 Funcionalidades principales
+
+- ✔️ Registro manual de facturas con tipo, número e importe.
+- 📆 Balance del día con total, comisión (2%) y rendición automática.
+- 🧾 Descarga en PDF de todas las facturas registradas.
+- 🧠 Datos persistentes gracias a almacenamiento local (IndexedDB).
+- 🧩 Interfaz limpia, responsive y de carga rápida.
+- 🟢 PWA: puede instalarse como una app en el dispositivo.
+
+---
+
+## 🖼️ Capturas
+
+### Registro de Factura
+<img src="./src/assets/cargar-factura.png" alt="Cargar Factura" width="500"/>
+
+### Balance Diario
+<img src="./src/assets/balance-factura.png" alt="Balance Diario" width="500"/>
+
+---
+
+## 🛠️ Instalación y uso local
+
+1. Clonar el repositorio:
+
+```bash
+git clone https://github.com/DevEmpulse/SI-cobro-agua.git
+cd SI-cobro-agua
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instalar dependencias:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+3. Iniciar la app en desarrollo:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🗂️ Estructura de carpetas
+
+```bash
+📦 SI-COBRO-AGUA
+├── 📁 public
+│   └── vite.svg
+├── 📁 src
+│   ├── 📁 assets
+│   │   └── react.svg
+│   ├── 📁 components
+│   │   ├── 📁 DataTable
+│   │   │   └── DataTable.tsx
+│   │   ├── 📁 ui
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── form.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── popover.tsx
+│   │   │   ├── select.tsx
+│   │   │   ├── sonner.tsx
+│   │   │   ├── table.tsx
+│   │   │   ├── tabs.tsx
+│   │   │   ├── ActionsCell.tsx
+│   │   │   ├── ConfirmDeleteModal.tsx
+│   │   │   └── Header.tsx
+│   ├── 📁 db
+│   │   └── facturasDB.ts
+│   ├── 📁 features
+│   │   └── 📁 facturas
+│   │       ├── 📁 columns
+│   │       │   ├── Columns.tsx
+│   │       │   └── exportarFacturas.ts
+│   │       ├── FacturaForm.tsx
+│   │       └── FacturaList.tsx
+│   ├── 📁 hooks
+│   │   ├── useBalance.tsx
+│   │   └── useFacturas.tsx
+│   ├── 📁 lib
+│   │   └── utils.ts
+│   ├── 📁 pages
+│   │   ├── Balance.tsx
+│   │   └── Home.tsx
+│   ├── 📁 types
+│   │   ├── balance.ts
+│   │   ├── factura.ts
+│   │   └── react-table.d.ts
+│   ├── 📁 utils
+│   │   ├── calculos.ts
+│   │   └── deletefactura.ts
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── .gitignore
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+├── tailwind.config.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+---
+
+## 📦 Deploy
+
+Esta aplicación está desplegada en [Netlify](https://www.netlify.com/) como una PWA completamente funcional, lista para ser usada sin conexión.
+
+---
+
+## 📃 Licencia
+
+MIT © 2025 - Empulse.site

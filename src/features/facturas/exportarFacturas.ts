@@ -39,14 +39,14 @@ export const exportarFacturasDelDia = async () => {
   doc.text(`Facturas del Día - ${fechaFormateada}`, 14, 20);
 
   const rows = facturasDelDia.map((f) => [
-    f.id ?? "",
+    f.tipo ?? "",
     f.numero ?? "",
     f.importe !== undefined ? `$${f.importe.toFixed(2)}` : "",
     f.fecha ? new Date(f.fecha).toLocaleString("es-AR") : "",
   ]);
 
   autoTable(doc, {
-    head: [["ID", "Nº Factura", "Importe", "Fecha"]],
+    head: [["Tipo", "Nº Factura", "Importe", "Fecha"]],
     body: rows,
     startY: 30,
   });
