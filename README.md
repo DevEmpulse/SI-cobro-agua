@@ -10,7 +10,7 @@
 | Tecnología | Descripción |
 |-----------|-------------|
 | [React](https://reactjs.org) | Biblioteca de UI |
-| [Vite]([https://vite.dev/]) | Framework para desarrollo web moderno |
+| [Vite](https://vite.dev) | Framework para desarrollo web moderno |
 | [Tailwind CSS](https://tailwindcss.com) | Estilos rápidos y personalizables |
 | [TypeScript](https://www.typescriptlang.org) | Tipado estático para mayor robustez |
 | [Dexie.js](https://dexie.org) | IndexedDB para almacenamiento offline |
