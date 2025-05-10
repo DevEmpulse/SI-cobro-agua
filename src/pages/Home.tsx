@@ -31,7 +31,7 @@ import { toast } from "sonner";
 
 // Esquema de validación
 const formSchema = z.object({
-  tipo: z.enum(["A", "B", "M"], {
+  tipo: z.enum(["A", "B", "M", "C", "E", "T", "X", "R"], {
     required_error: "El tipo de factura es requerido.",
   }),
   numeroFactura: z.string().min(1, {
